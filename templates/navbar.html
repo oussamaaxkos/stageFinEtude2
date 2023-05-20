@@ -1,0 +1,307 @@
+
+
+  <nav style="background-color : #4682B4 ; position: fixed;   top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;" class="navbar bg-warning  navbar-expand-lg ">
+    <div  class="container-fluid">
+      <a class="navbar-brand" href="/"><h1><span class="text-dark">INF</span><span class="text-danger">O</span><span class="text-light">TECH</span></h1></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a id="homePage" class="nav-link active" aria-current="page" href="/">Services</a>
+          </li>
+          <li class="nav-item">
+            <a id="homePage" class="nav-link active" aria-current="page" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/registerLogin">Sign In</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+         
+         
+        </ul>
+        <div class="d-flex" id="account" style="margin-right:30px; justify-content:space-between ">
+          {% if session["name"] %}
+          <div type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor:pointer">
+            <small>{{session["name"]}}</small>
+            <img style="width:40px ; border-radius:50px" src="../static/profiles/{{session['profile']}}" alt=""> </div>
+          </div>
+          {% else %}
+            <a  class="nav-link" href="/registerLogin">Login</a>
+           {% endif %}
+          <div style="display:none" class="navbarSearch">
+            <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button  class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          </div>
+      
+      </div>
+    </div>
+  </nav>
+  
+   <!-- Button trigger modal -->
+  
+<!-- Modal -->
+<div class="modal fade float " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+      <div  style="width:100px ; height:100px ; background-color:white ; border-radius : 50px" >
+        <div style="margin-top: 3px;"  class="d-flex justify-content-center"><img style="width:90px ; border-radius:50px" src="../static/profiles/{{session['profile']}}" alt=""></div>
+      </div> 
+        <!-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> -->
+      <div style=" font-size: 10px;
+      font-weight: 500;
+      color: #fdfcfc;" class="row">
+        <div class="ml-3"><h1> {{ session['name'] }} </h1></div>
+        <div class="ml-3"><p>@Account officiel</p></div>
+      </div>
+      <div class="row">
+        <div class="col text-end">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Change your Email</label>
+            <input id="newEmail" type="email" value="{{session['email']}}" class="form-control"  aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          
+          </div>
+          
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Change number</label>
+            <input id="newPhone" value="{{session['phone']}}" type="text" class="form-control" >
+            <div id="phoneHelp" class="form-text"></div>
+          </div>
+          <div class="mb-3 d-flex">
+            <div>
+              <label  class="form-label">username</label>
+              <input id="newUsername" value="{{ session['name'] }}" type="text" class="form-control">
+              <div style="display: none;"  id="usernameHelp" class="form-text text-success"></div>
+            </div>
+            <div class="ml-1">
+              <label for="exampleInputPassword1" class="form-label">password</label>
+              <input id="newPassword" value="{{session['password']}}" type="password" class="form-control" >
+              <div style="display: none;"  id="passwordHelp" class="form-text text-success"></div>
+              <label for="exampleInputPassword1" class="form-label">confirm password</label>
+              <input id="confirmPssword" value="{{session['password']}}" type="password" class="form-control" id="exampleInputPassword1">
+              <div style="display: none;"  id="confirmpasswordHelp" class="form-text text-success"></div>
+            </div>
+            </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="saveChanges" type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div style="width:100px ; height:90px ">
+
+</div>
+
+
+   
+
+
+  <!-- jquer tools  -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../static/js/jQuery.session.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+    let semail = false , sphone = false , susername = false , spassword = false , sconfirmPssword = false ; 
+    let email = $("#newEmail").val();
+    let phone = $("#newPhone").val();
+    let username = $("#newUsername").val();
+    let password = $("#newPassword").val();
+    let confirmPssword = $("#confirmPssword").val();
+    let inervallpprocessus
+
+    let ae = false
+    let ap = false
+    $("#account").click(()=>{
+        
+        inervallpprocessus = setInterval(function() {
+        email = $("#newEmail").val();
+        phone = $("#newPhone").val();
+        username = $("#newUsername").val();
+        password = $("#newPassword").val();
+        confirmPssword = $("#confirmPssword").val();
+       console.log(ae)
+        /* processus for email  */
+        if( ae == true ){
+          $("#emailHelp").text("Already exist!")
+          $("#emailHelp").addClass("text-danger")
+        }else if (email.trim() === ""){
+          $("#emailHelp").hide()
+          semail = false;
+        }else if ((email.indexOf("@") !== -1) == false) {
+          $("#emailHelp").text("The email should contains @ !")
+          $("#emailHelp").addClass("text-danger")
+          $("#emailHelp").show()
+          semail = false;
+        } else{
+          $("#emailHelp").removeClass("text-danger");
+          $("#emailHelp").text("success!")
+          $("#emailHelp").addClass("text-success")
+          $("#emailHelp").show()
+          semail = true;
+        }
+        
+  
+        /* processus for phone  */
+  
+        const regex = /\D/;
+        if( ap == true ){
+          $("#phoneHelp").addClass("text-danger")
+          $("#phoneHelp").text(xhr.responseJSON['error'])
+        }else if (regex.test(phone) ){
+          $("#phoneHelp").text("The phone number contains non-numeric characters.")
+          $("#phoneHelp").addClass("text-danger")
+          $("#phoneHelp").show()
+          console.log("a")
+          sphone = false;
+        }else if(phone===""){
+  
+          $("#phoneHelp").hide()
+          sphone = false;
+        }else{
+          $("#phoneHelp").removeClass("text-danger");
+          $("#phoneHelp").text("success!")
+          $("#phoneHelp").addClass("text-success")
+          $("#phoneHelp").show()
+          sphone = true;
+        }
+  
+        /* processus for username */
+  
+        if( username != "" ){
+          $("#usernameHelp").show()
+          $("#usernameHelp").text("sucess")
+          susername = true
+        }else{
+          $("#usernameHelp").hide()
+          susername = false
+        }
+  
+        /* processus for password */
+        const regex2 = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/; // This matches any special character
+        if( password ==="" ){
+  
+          $("#passwordHelp").hide()
+          spassword = false
+  
+        }else if (regex.test(password)) {
+          $("#passwordHelp").addClass("text-danger")
+          $("#passwordHelp").text("special character!")
+          $("#passwordHelp").show()
+          spassword = false
+  
+        } else {
+          $("#passwordHelp").removeClass("text-danger");
+          $("#passwordHelp").addClass("text-success")
+          $("#passwordHelp").text("success.")
+          $("#passwordHelp").show()
+          spassword = true
+        }
+  
+        /* processuss for confirme password */
+  
+        if( confirmPssword == "" ){
+          $("#confirmpasswordHelp").hide()
+          sconfirmPssword = false
+        }
+        else if( confirmPssword != password ){
+          $("#confirmpasswordHelp").text("password are not same!")
+          $("#confirmpasswordHelp").addClass("text-danger")
+          $("#confirmpasswordHelp").show()
+          sconfirmPssword = false
+  
+        }else{
+  
+          $("#confirmpasswordHelp").removeClass("text-danger");
+          $("#confirmpasswordHelp").text("success.")
+          $("#confirmpasswordHelp").addClass("text-success")
+          $("#confirmpasswordHelp").show()
+          sconfirmPssword = true
+        }
+  
+        
+  console.log("a")
+      }, 500);
+
+    })
+
+    $("#saveChanges").click(()=>{
+
+
+      if( semail && susername && spassword &&  sconfirmPssword ){
+
+      const formdata = new FormData();
+      formdata.append('username', username );
+      formdata.append('email', email );
+      formdata.append('phone', phone );
+      formdata.append('password', password );
+
+      $.ajax({
+        url: '/updateAccount', // Flask server route to handle the POST request
+        method: 'POST',
+        data: formdata,
+        processData: false, // Set the processData to false to prevent jQuery from processing the FormData object
+        contentType: false, // Set the contentType to false to prevent jQuery from adding a Content-Type header
+        // Pass the username data in the request body
+        success: function(response) {
+          console.log(response.message)
+        },
+        error: function(xhr) {
+        
+          if(xhr.responseJSON['phone'] == "True"){
+            $("#phoneHelp").text(xhr.responseJSON['error']) 
+            ap = true
+          }else if(xhr.responseJSON['phone'] == "False"){
+            $("#emailHelp").text(xhr.responseJSON['error'])
+            ae = true
+          }
+        }
+    });
+  }
+
+
+    })
+
+    $(".btn-close").click(()=>{
+     
+      clearInterval(inervallpprocessus);
+
+    })
+    $("#btn-close").click(()=>{
+
+      clearInterval(inervallpprocessus);
+
+    })
+
+
+
+})
+  
+
+
+</script>

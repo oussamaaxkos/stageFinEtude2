@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Animated Login Form</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/login.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	   <!-- Bootstrap CSS -->
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+       <!-- jQuery library -->
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+       <!-- Popper JS -->
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+       <!-- Bootstrap JS -->
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+       
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+
+  {% include "navbar.html" %}
+
+
+    <img class="wave" src="../static/images/loginimages/wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="../static/images/loginimages/bg.svg">
+		</div>
+		<div class="login-content ">
+
+            <!-- Register -->
+            <div class="registerPage">
+
+                    <img style="cursor:pointer ;  border-radius:50px" src="../static/images/loginimages/avatar.svg" id="avatar-image">
+                    <h6 class="title">Sign in now</h6>
+                <div ><p style="display:none" class="text-danger errorMessage"></p></div>
+                <div ><p style="display:none" class="text-success successMessage"></p></div>
+
+                      <div class="input-div one">
+                        <div class="i">
+                                <i class="fas fa-user"></i>
+                        </div>
+                        <div class="div">
+                                <h5>Username</h5>
+                                <input id="usernameRegister" name="usernameRegister" type="text" class="input">
+                        </div>
+                       </div>
+                       <div class="input-div one">
+                          <div class="i">
+                                  <i class="fas fa-user"></i>
+                          </div>
+                          <div class="div">
+                                  <h5>Email</h5>
+                                  <input id="emailRegister" type="email" name="emailRegister" class="input">
+                          </div>
+                       </div>
+                       <div class="input-div pass">
+                          <div class="i"> 
+                               <i class="fas fa-phone"></i>
+                          </div>
+                          <div class="div">
+                               <h5>Number Phone</h5>
+                               <input id="phoneRegister" type="text" name="phoneRegister" class="input">
+                       </div>
+                    </div>
+                    <div class="input-div pass">
+                        <div class="i"> 
+                             <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="div">
+                             <h5>Password</h5>
+                             <input type="password" id="passwordRegister" name="passwordRegister" class="input">
+                     </div>
+                  </div>
+                  <div style="display:flex ; justify-content:space-between">
+                    <a href="Home.html">Forgot Password?</a>
+                    <a id="goToLogin" style="text-decoration: underline ; color:blue ; cursor:pointer" disabled>Log in</a>
+                    
+                  </div>
+                    <input id="registerButton"  class="btn" value="Login">
+                <input style="display: none;" type="file"  id="file" name="file">
+                   
+            </div>
+			<!-- End Of register -->
+
+            
+            <!-- Login -->
+            <div class="loginPage" style="display:none;">
+                    <img src="../static/images/loginimages/avatar.svg">
+                    <h2 class="title">Welcome</h2>
+                <div ><p style="display:none" class="text-danger errorMessageLogin"></p></div>
+                <div ><p style="display:none" class="text-success successMessageLogin"></p></div>
+                    <div class="input-div one">
+                          <div class="i">
+                                <i class="fas fa-user"></i>
+                          </div>
+                          <div class="div">
+                                <h5>Email</h5>
+                                <input type="text" id="emailLogin" class="input">
+                          </div>
+                       </div>
+                       <div class="input-div pass">
+                          <div class="i"> 
+                               <i class="fas fa-lock"></i>
+                          </div>
+                          <div class="div">
+                               <h5>Password</h5>
+                               <input type="password" id="passwordLogin" class="input">
+                       </div>
+                    </div>
+                    <a href="#">Forgot Password?</a>
+                    <a id="goToRegister" style="text-decoration: underline ; color:blue ; cursor:pointer" disabled>Sign in</a>
+                    <input id="loginButton" type="submit" class="btn" value="Login">
+            </div>
+            <!-- End Login -->
+        </div>
+    </div>
+
+    
+<script src="../static/js/jQuery.session.js"></script>
+<script>
+
+    let file;
+
+    
+    const avatarImage = document.getElementById('avatar-image');
+    const fileInput = document.getElementById('file');
+
+    fileInput.addEventListener('change', () => {
+        file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener('load', () => {
+            avatarImage.src = reader.result;
+        });
+
+        reader.readAsDataURL(file);
+    });
+
+    avatarImage.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+
+
+
+
+
+    
+    $(document).ready(function(){
+
+        $("#goToLogin").click(()=>{
+
+            $(".registerPage").hide(300)
+            $(".loginPage").show(300)
+
+        })
+        $("#goToRegister").click(()=>{
+
+            $(".registerPage").show(300)
+            $(".loginPage").hide(300)
+
+        })
+
+        $('#registerButton').click(function() {
+            const fileInput = $('#file')[0];
+        if (fileInput.files.length > 0) { // Check if a file was selected
+            file = fileInput.files[0] // Add the file to the FormData object
+        }
+        const formData = new FormData();
+        formData.append('username', $('#usernameRegister').val());
+        formData.append('email', $('#emailRegister').val());
+        formData.append('phone', $('#phoneRegister').val());
+        formData.append('password', $('#passwordRegister').val());
+        formData.append('image', $('#file')[0].files[0]);
+
+
+            var username = $("#usernameRegister").val();
+            var email = $("#emailRegister").val();
+            var phone = $("#phoneRegister").val();
+            var password = $("#passwordRegister").val()
+
+        
+
+            $.ajax({
+                url: '/register', // Flask server route to handle the POST request
+                method: 'POST',
+                data: formData,
+                processData: false, // Set the processData to false to prevent jQuery from processing the FormData object
+                contentType: false, // Set the contentType to false to prevent jQuery from adding a Content-Type header
+                // Pass the username data in the request body
+                success: function(response) {
+                    $('#goToLogin').click();
+                    console.log(response.message)
+                    $(".successMessage").text(response.message);
+                    $(".successMessage").show(2000);
+                    $(".successMessage").hide(2000);
+                    console.log(response); // Handle the Flask server response
+                },
+                error: function(xhr) {
+                    console.log("the error is"+ xhr.responseText)
+                    $('.errorMessage').text(xhr.responseJSON['error']);  // Handle any errors that occur during the request
+                    $('.errorMessage').show(100);
+                }
+            });
+
+
+        });
+        
+        $("#loginButton").click(()=>{
+
+            console.log("clicked")
+            let email =  $('#emailLogin').val()
+            const formData = new FormData();
+            formData.append('email', $('#emailLogin').val());
+            formData.append('password', $('#passwordLogin').val());
+            console.log($('#emailLogin').val())
+            $.ajax({
+                url: '/login', // Flask server route to handle the POST request
+                method: 'POST',
+                data: formData,
+                processData: false, // Set the processData to false to prevent jQuery from processing the FormData object
+                contentType: false, // Set the contentType to false to prevent jQuery from adding a Content-Type header
+                // Pass the username data in the request body
+                success: function(response) {
+                    $.session.set("userEmail", email);
+                    $.session.set("userId", response.id );
+                    $.session.set("userName", response.username );
+                    $.session.set("userProfile", response.profile );
+                    window.location.href = "/"
+                },
+                error: function(xhr) {
+                    
+                    $('.errorMessageLogin').text(xhr.responseJSON['error']);  // Handle any errors that occur during the request
+                    $('.errorMessageLogin').show(100);
+
+                },
+                xhrFields: {
+                    withCredentials: true // Send cookies with the request
+                  }
+            });
+        })
+        
+        
+
+    })
+ 
+
+    
+</script>
+	
+
+  
+
+
+    <script type="text/javascript" src="../static/js/loginjs.js"></script>
+</body>
+</html>

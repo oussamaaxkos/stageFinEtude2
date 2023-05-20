@@ -1,0 +1,41 @@
+.mainOfVm1{
+
+    background-image: url("../images2/background/vm1.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
+.mainOfVm2{
+
+    background-image: url("../images2/background/vm2.avif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
+.mainOfVm3{
+
+    background-image: url("../images2/background/vm3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
+.mainOfVm4{
+
+    background-image: url("../images2/background/vm4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
+
+.mainOfVm5{
+
+    background-image: url("../images2/background/vm5.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}

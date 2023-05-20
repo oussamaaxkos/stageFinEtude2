@@ -1,0 +1,41 @@
+.mainOfPub1{
+
+    background-image: url("../images2/background/pub1.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
+.mainOfPub2{
+
+    background-image: url("../images2/background/pub2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
+.mainOfPub3{
+
+    background-image: url("../images2/background/pub3.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
+.mainOfPub4{
+
+    background-image: url("../images2/background/pub4.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
+
+.mainOfPub5{
+
+    background-image: url("../images2/background/pub5.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 5px;
+
+}
